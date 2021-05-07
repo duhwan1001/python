@@ -1,13 +1,16 @@
 package application;
 
+import java.util.Optional;
+
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -119,7 +122,16 @@ public class Main9 extends Application {
 				@Override
 				public void handle(Event event) {
 					tfNum.clear();
-					System.out.println(tfNum.getLength());
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Calling");
+					alert.setContentText(tfNum.getText());
+
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == ButtonType.OK){
+					    // ... user chose OK
+					} else {
+					    // ... user chose CANCEL or closed the dialog
+					}
 				}
 			});
 			
