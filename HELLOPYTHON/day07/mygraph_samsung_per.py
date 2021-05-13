@@ -21,15 +21,17 @@ def getPrices(s_name):
         ret.append(row[0])
     
     conn.close()
-    return ret
+    return np.array(ret)
 
 def getNames():
     conn = pymysql.connect(host='localhost', user='root', password='java', db='python', charset='utf8')
      
     curs = conn.cursor()
     sql = """
-        SELECT s_name 
-        FROM stock
+            SELECT s_name 
+            FROM stock
+            GROUP BY s_name
+            LIMIT 10
         """
     
     curs.execute(sql)
@@ -41,20 +43,25 @@ def getNames():
     conn.close()
     return names
 
-names = getNames()
+arr_name = getNames()
+print(arr_name)
 
-for name in names:
-    print(name)
-# fig = plt.figure()
-# ax = plt.axes(projection='3d')
-# z_sam = np.array(getPrices("삼성전자"))
-# z_samr = np.array(getPrices("동아에스티"))
-# z_kia = np.array(getPrices("기아"))
-# x = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
-# y = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])  # 12개
-#
-# ax.set_title('chart test')
-# ax.plot3D(x, y, z_sam, 'maroon')  # x , y , color
-# ax.plot3D(x + 1, y, z_samr, 'blue') 
-# ax.plot3D(x + 2, y, z_kia, 'orange') 
-# plt.show()
+arrz = []
+arr_per_z = []
+for i in range(len(arr_name)):
+    print(i)
+    arrz.append(getPrices(arr_name[i]))
+    
+    arr_per_z.append(arrz[i]/arrz[i][0])
+
+fig = plt.figure()
+ax = plt.axes(projection='3d')
+
+x = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+y = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])  # 12개
+
+for i in range(len(arr_name)):
+    ax.plot3D(x+i, y, arr_per_z[i])  # x , y , color
+    
+ax.set_title('chart test')
+plt.show()
