@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<a href="javascript:fn_ajax()">ajax링크</a>
+	hello
+	
+	
+<!-- <script src="jquery-3.6.0.js"></script>	 -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+	function fn_ajax(){
+		var postdata ={
+        			"e_id":"a",
+        			"e_name":"b",
+        			"birth":"c"
+        			}
+		$.ajax({
+			type: 'POST',
+            url: 'ajax', // {{ url_for("ajax") }} 이것도 가능하나 html파일부터 시작하면 안됨(requset에서 root를 받아오는 거기에(?)) 
+            data: JSON.stringify(postdata),
+            dataType : 'JSON',
+            contentType: 'application/json',
+            success: function(data){
+                console.log(data)
+            },
+            error: function(request, status, error){
+                alert('ajax 통신 실패')
+                alert(error);
+            }
+        })	
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<p><b>기본 : </b> ans.html 로딩</p>
+	
+	<p><b>문자열 : </b>{{str}}</p>
+	
+	<p><b>obj : </b>{{objlist}}</p>
+	
+	<p><b>배열 : </b>{{title}}</p>
+	
+	<div>
+	<b>for문 : </b>
+	{% for i in objlist %}
+		{{i.birth }}
+	{% endfor %}
+	</div>
+	<br>	
+	
+	<div>
+	<b>for문 : </b>
+	{% for i in title %}
+		{{i }}
+	{% endfor %}
+	</div>
+	
+	<button type="button" onclick="ajaxtest()">ajax버튼</button>
+	
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>	
+<script type="text/javascript">
+	function ajaxtest(){
+		var param ="test"
+		$.ajax({
+            type: 'POST',
+            url: '{{url_for("ajax")}}',
+            data : param,
+            success: function(data){
+                alert('성공!')
+            },
+            error: function(xhr){
+                alert('ajax 통신 실패')
+                alert(xhr);
+            }
+        })	
+	}
+	
+
+</script>
+</body>
+</html>
