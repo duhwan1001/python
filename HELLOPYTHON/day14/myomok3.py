@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from numba.core.cgutils import terminate
 
 
-form_class = uic.loadUiType("myomok02.ui")[0]
+form_class = uic.loadUiType("myomok20.ui")[0]
 
 
 class MyApp(QMainWindow, form_class):  # 상속
